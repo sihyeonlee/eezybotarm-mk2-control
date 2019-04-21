@@ -1,2 +1,6 @@
 
 \.idea/
+
+pip/
+
+src/__pycache__/
