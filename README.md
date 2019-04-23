@@ -18,3 +18,4 @@
 - 2019-04-19 NodeMCU에 Micro Python 작동 확인
 - 2019-04-20 NodeMCU 불량으로 부품 재수급 및 회로 재설계
 - 2019-04-21 게임패드를 이용하여 eezybotarm 컨트롤
+- 2019-04-23 UART 통신으로 게임패드와 eezybotarm 연동

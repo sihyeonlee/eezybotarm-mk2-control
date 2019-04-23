@@ -13,9 +13,6 @@ def transmit_data_list(link_, data_list):
 
     data.extend(b'\n')
 
-    if data == b'BNLNRN\n':
-        return -1
-
     link_.write(data)
 
     return data
