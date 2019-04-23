@@ -4,3 +4,5 @@
 pip/
 
 src/__pycache__/
+
+src/func/__pycache__/
