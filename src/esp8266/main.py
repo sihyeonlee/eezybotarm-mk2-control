@@ -3,23 +3,24 @@ from machine import UART
 import time
 
 MAX_DUTY = 120
-MIN_DUTY = 40
+MIN_DUTY = 30
+right_pin = 14
+left_pin = 4
+bottom_pin = 12
+
 
 def init_servo(pin):
     servo = machine.PWM(machine.Pin(pin), freq=50)
 
     return servo
 
+
 def init_uart(id, baud):
     uart = UART(id, baud)
-    uart.init(baud, bits=8, parity=None, stop=1, timeout=1023)
+    uart.init(baud, bits=8, parity=None, stop=1, timeout=15)
 
     return uart
 
-
-right_pin = 14
-left_pin = 4
-bottom_pin = 12
 
 right_servo = init_servo(right_pin)
 left_servo = init_servo(left_pin)
@@ -34,8 +35,6 @@ p_l = 80
 p_r = 100
 
 uart = init_uart(0, 115200)
-
-print("TEST")
 
 p_b_data = 'BN'
 p_l_data = 'LN'
@@ -59,33 +58,38 @@ while True:
         p_l_data = l_data
         p_r_data = r_data
 
-    if p_b_data == 'BU':
-        if p_b < MAX_DUTY:
-            p_b = p_b + 5
-    elif p_b_data == 'BD':
-        if p_b > MIN_DUTY:
-            p_b = p_b - 5
-    elif p_b_data == 'BN':
-        p_b = p_b
+    if p_b_data == 'BU' and p_b < 130:
+        n_b = p_b + 1
+    elif p_b_data == 'BD' and p_b > MIN_DUTY:
+        n_b = p_b - 1
+    else:
+        n_b = p_b
 
-    if p_l_data == 'LU':
-        if p_l < MAX_DUTY:
-            p_l = p_l + 5
-    elif p_l_data == 'LD':
-        if p_l > MIN_DUTY:
-            p_l = p_l - 5
-    elif p_l_data == 'LN':
-        p_l = p_l
+    if p_l_data == 'LU' and p_l < MAX_DUTY:
+        n_l = p_l + 1
+    elif p_l_data == 'LD' and p_l > 60:
+        n_l = p_l - 1
+    else:
+        n_l = p_l
 
-    if p_r_data == 'RU':
-        if p_r < MAX_DUTY:
-            p_r = p_r + 5
-    elif p_r_data == 'RD':
-        if p_r > MIN_DUTY:
-            p_r = p_r - 5
-    elif p_r_data == 'RN':
-        p_r = p_r
+    if p_r_data == 'RU' and p_r < MAX_DUTY:
+        n_r = p_r + 1
+    elif p_r_data == 'RD' and p_r > 80:
+        n_r = p_r - 1
+    else:
+        n_r = p_r
 
-    right_servo.duty(p_r)
-    left_servo.duty(p_l)
-    bottom_servo.duty(p_b)
+    if n_b != p_b or n_l != p_l or n_r != p_r:
+        right_servo.duty(n_r)
+        left_servo.duty(n_l)
+        bottom_servo.duty(n_b)
+
+        print("Bottom Position :", n_b)
+        print("Right Position :", n_r)
+        print("Left Postion :", n_l)
+
+        p_b = n_b
+        p_r = n_r
+        p_l = n_l
+
+    time.sleep_ms(20)
