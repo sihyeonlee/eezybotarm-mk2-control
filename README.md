@@ -21,3 +21,4 @@
 - 2019-04-23 UART 통신으로 게임패드와 eezybotarm 연동
 - 2019-04-24 코드 간결화
 - 2019-04-25 Micropython에 MQTT 적용 방법 고안
+- 2019-04-26 Micropython MQTT 오픈 소스 사용 시도
