@@ -9,8 +9,10 @@ joystick = pygame.joystick
 joystick_.init(joystick)
 
 num_joystick = joystick.get_count()
-if num_joystick < 0:
+if num_joystick <= 0:
     print("Not Find Device")
+
+    exit(-1)
 else:
     print("Now %d Devices Connect" % num_joystick)
 
@@ -18,8 +20,9 @@ controller = joystick.Joystick(0)
 joystick_.init(controller)
 
 controller_info = joystick_.get_info(controller)
+print("Controller Info : ", controller_info)
 
-robot_arm = serial_.link("COM9", 115200)
+robot_arm = serial_.link("COM1", 115200)
 
 past_list = [-1, -1, -1, -1]
 
