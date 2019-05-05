@@ -8,5 +8,12 @@ def init(port):
     return soc
 
 
-def send_data(soc, data, ip, port):
-    soc.sendto(data, (ip, port))
+def send_data(soc, data_list, ip, port):
+    data = bytearray()
+
+    for i in data_list:
+        b_i = bytes(i.encode())
+        data.extend(b_i)
+
+    soc.sendto(data, (ip, int(port)))
+
