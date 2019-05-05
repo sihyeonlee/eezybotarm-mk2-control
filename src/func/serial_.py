@@ -4,6 +4,7 @@ import serial
 def link(port, baud):
     return serial.Serial(port, baud)
 
+
 def transmit_data_list(link_, data_list):
     data = bytearray()
 
