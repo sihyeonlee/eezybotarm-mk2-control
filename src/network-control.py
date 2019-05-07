@@ -3,11 +3,11 @@ from func import serial_
 from func import joystick_
 from func import network_
 
-controller_ip = '192.168.1.33'
+controller_ip = '192.168.1.251'
 controller_port = '828'
 
 pygame.init()
-soc = network_.init(828)
+soc = network_.init()
 
 joystick = pygame.joystick
 joystick_.init(joystick)
