@@ -1,9 +1,8 @@
 import socket
 
 
-def init(port):
+def init():
     soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    soc.bind(('0.0.0.0', port))
 
     return soc
 
